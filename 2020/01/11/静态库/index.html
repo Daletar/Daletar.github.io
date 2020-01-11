@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="en">
+<html class="theme-next gemini use-motion" lang="en">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -79,12 +79,12 @@
 
 
 
-<meta name="description" content="一、什么是库？  库是共享程序代码的方式，一般分为静态库和动态库。  二、静态库与动态库的区别？  静态库：链接时完整地拷贝至可执行文件中，被多次使用就有多份冗余拷贝。动态库：链接时不复制，程序运行时由系统动态加载到内存，供程序调用，系统只加载一次，多个程序共用，节省内存。  三、iOS里静态库形式？  .a和.framework  四、iOS里动态库形式？  .dylib和.framework">
+<meta name="description" content="title: 标签date: 2020-01-11 15:30:08type: “tags” 一、什么是库？  库是共享程序代码的方式，一般分为静态库和动态库。  二、静态库与动态库的区别？  静态库：链接时完整地拷贝至可执行文件中，被多次使用就有多份冗余拷贝。动态库：链接时不复制，程序运行时由系统动态加载到内存，供程序调用，系统只加载一次，多个程序共用，节省内存。  三、iOS里静态库形式？">
 <meta property="og:type" content="article">
 <meta property="og:title" content="静态库">
 <meta property="og:url" content="http://yoursite.com/2020/01/11/%E9%9D%99%E6%80%81%E5%BA%93/index.html">
 <meta property="og:site_name" content="tartar">
-<meta property="og:description" content="一、什么是库？  库是共享程序代码的方式，一般分为静态库和动态库。  二、静态库与动态库的区别？  静态库：链接时完整地拷贝至可执行文件中，被多次使用就有多份冗余拷贝。动态库：链接时不复制，程序运行时由系统动态加载到内存，供程序调用，系统只加载一次，多个程序共用，节省内存。  三、iOS里静态库形式？  .a和.framework  四、iOS里动态库形式？  .dylib和.framework">
+<meta property="og:description" content="title: 标签date: 2020-01-11 15:30:08type: “tags” 一、什么是库？  库是共享程序代码的方式，一般分为静态库和动态库。  二、静态库与动态库的区别？  静态库：链接时完整地拷贝至可执行文件中，被多次使用就有多份冗余拷贝。动态库：链接时不复制，程序运行时由系统动态加载到内存，供程序调用，系统只加载一次，多个程序共用，节省内存。  三、iOS里静态库形式？">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/581362-11b6ba8c431e245d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/581362-07b1fc4b305cccb4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/581362-ff2f8b9d9af25612.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/581362-5b71e940a4e9c5d4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="article:published_time" content="2020-01-11T01:05:23.699Z">
-<meta property="article:modified_time" content="2020-01-11T02:17:14.772Z">
+<meta property="article:modified_time" content="2020-01-11T07:41:04.603Z">
 <meta property="article:author" content="Mr.Huang">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/581362-11b6ba8c431e245d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -103,7 +103,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Gemini',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -166,7 +166,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">错把陈醋当成墨，写尽半生都是酸</p>
+        <p class="site-subtitle">记录世界，记录生活</p>
       
   </div>
 
@@ -189,17 +189,37 @@
         <li class="menu-item menu-item-home">
           <a href="/%20" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
             Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/%20" rel="section">
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/%20" rel="section">
+            
+            Categories
           </a>
         </li>
       
         
         <li class="menu-item menu-item-archives">
           <a href="/archives/%20" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             Archives
           </a>
@@ -305,7 +325,8 @@
       
 
       
-        <p>一、什么是库？</p>
+        <p>title: 标签<br>date: 2020-01-11 15:30:08<br>type: “tags”</p>
+<p>一、什么是库？</p>
 <blockquote>
 <p>库是共享程序代码的方式，一般分为静态库和动态库。</p>
 </blockquote>
@@ -367,8 +388,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/01/11/runtime/" rel="next" title="runtime">
-                <i class="fa fa-chevron-left"></i> runtime
+              <a href="/2020/01/11/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" rel="next" title="内存管理">
+                <i class="fa fa-chevron-left"></i> 内存管理
               </a>
             
           </div>
@@ -377,8 +398,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/01/11/Git%E5%85%A5%E9%97%A8/" rel="prev" title="Git入门">
-                Git入门 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/01/11/runtime/" rel="prev" title="runtime">
+                runtime <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -446,7 +467,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">Mr.Huang</p>
-              <p class="site-description motion-element" itemprop="description">网站描述(SEO)</p>
+              <p class="site-description motion-element" itemprop="description">错把陈醋当成墨，写尽半生都是酸</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -470,6 +491,22 @@
 
           
 
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Daletar/" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="598589220@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
           
 
           
@@ -531,7 +568,7 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
 
 
 
@@ -630,6 +667,13 @@
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
