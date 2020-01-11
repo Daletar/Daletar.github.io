@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.cocoachina.com/articles/896169?filter=rec">
-  <title>Archives: 2020/1 | 黄先生博客</title>
+  <title>runtime | 黄先生博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="黄先生博客">
-<meta property="og:url" content="http://www.cocoachina.com/articles/896169?filter=rec/archives/2020/01/index.html">
+  <meta name="description" content="runtime参考：https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;8345a79fd572 1.runtime 如何实现 weak 属性 weak策略表明该属性定义了一种“非拥有关系” (nonowning relationship)。为这种属性设置新值时，设置方法既不保留新值，也不释放旧值。此特质同assign类似;然而在属性所指的对象遭到销毁时，属性值也会清空(nil out)  2.那">
+<meta property="og:type" content="article">
+<meta property="og:title" content="runtime">
+<meta property="og:url" content="http://www.cocoachina.com/articles/896169?filter=rec/2020/01/11/runtime/index.html">
 <meta property="og:site_name" content="黄先生博客">
+<meta property="og:description" content="runtime参考：https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;8345a79fd572 1.runtime 如何实现 weak 属性 weak策略表明该属性定义了一种“非拥有关系” (nonowning relationship)。为这种属性设置新值时，设置方法既不保留新值，也不释放旧值。此特质同assign类似;然而在属性所指的对象遭到销毁时，属性值也会清空(nil out)  2.那">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-01-11T01:05:23.699Z">
+<meta property="article:modified_time" content="2020-01-11T02:18:14.515Z">
 <meta property="article:author" content="tartar">
 <meta name="twitter:card" content="summary">
   
@@ -154,130 +158,212 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-runtime" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      runtime
+    </h1>
+  
+
+        
+        <a href="/2020/01/11/runtime/" class="archive-article-date">
+  	<time datetime="2020-01-11T01:05:23.699Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-11</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="runtime"><a href="#runtime" class="headerlink" title="runtime"></a>runtime</h1><p>参考：<br><a href="https://www.jianshu.com/p/8345a79fd572" target="_blank" rel="noopener">https://www.jianshu.com/p/8345a79fd572</a></p>
+<h3 id="1-runtime-如何实现-weak-属性"><a href="#1-runtime-如何实现-weak-属性" class="headerlink" title="1.runtime 如何实现 weak 属性"></a>1.<code>runtime</code> 如何实现 <code>weak</code> 属性</h3><blockquote>
+<p>weak策略表明该属性定义了一种“非拥有关系” (nonowning relationship)。为这种属性设置新值时，设置方法既不保留新值，也不释放旧值。此特质同assign类似;然而在属性所指的对象遭到销毁时，属性值也会清空(nil out)</p>
+</blockquote>
+<h3 id="2-那么runtime如何实现weak变量的自动置nil？"><a href="#2-那么runtime如何实现weak变量的自动置nil？" class="headerlink" title="2.那么runtime如何实现weak变量的自动置nil？"></a>2.那么<code>runtime</code>如何实现<code>weak</code>变量的自动置<code>nil</code>？</h3><blockquote>
+<p>runtime对注册的类，会进行布局，会将 weak 对象放入一个 hash 表中。用 weak 指向的对象内存地址作为 key，当此对象的引用计数为0的时候会调用对象的 dealloc 方法，从而设置为 nil。所以weak属性不需要在dealloc中置nil</p>
+</blockquote>
+<h3 id="3-weak实现原理"><a href="#3-weak实现原理" class="headerlink" title="3.weak实现原理"></a>3.<code>weak</code>实现原理</h3><blockquote>
+<p>1、初始化时：runtime会调用objc_initWeak函数，初始化一个新的weak指针指向对象的地址。<br><br>2、添加引用时：objc_initWeak函数会调用 objc_storeWeak() 函数， objc_storeWeak() 的作用是更新指针指向，创建对应的弱引用表。<br><br>3、释放时，调用clearDeallocating函数。clearDeallocating函数首先根据对象地址获取所有weak指针地址的数组，然后遍历这个数组把其中的数据设为nil，最后把这个entry从weak表中删除，最后清理对象的记录。</p>
+</blockquote>
+<h3 id="4-runtime如何通过selector找到对应的IMP地址？（分别考虑类方法和实例方法）"><a href="#4-runtime如何通过selector找到对应的IMP地址？（分别考虑类方法和实例方法）" class="headerlink" title="4.runtime如何通过selector找到对应的IMP地址？（分别考虑类方法和实例方法）"></a>4.<code>runtime</code>如何通过<code>selector</code>找到对应的<code>IMP</code>地址？（分别考虑类方法和实例方法）</h3><blockquote>
+<p>每一个类对象中都一个对象方法列表<br><br>方法列表中，每个方法结构体都记录着方法的名称,方法实现,以及参数类型，其实selector本质就是方法名称,通过这个方法名称就可以在方法列表中找到对应的方法实现.</p>
+</blockquote>
+<blockquote>
+<p>类方法列表是存放在类对象 isa指针指向的元类对象中（类方法缓存）<br><br>1、当我们发送一个消息给一个对象时，这条消息会在对象的类对象方法列表里查找<br><br>2、当我们发送一个消息给一个类时，这条消息会在类的Meta Class对象的方法列表里查找</p>
+</blockquote>
+<h3 id="5-使用runtime-Associate方法关联的对象，需要在主对象dealloc的时候释放么？"><a href="#5-使用runtime-Associate方法关联的对象，需要在主对象dealloc的时候释放么？" class="headerlink" title="5.使用runtime Associate方法关联的对象，需要在主对象dealloc的时候释放么？"></a>5.使用<code>runtime Associate</code>方法关联的对象，需要在主对象<code>dealloc</code>的时候释放么？</h3><blockquote>
+<p>无论在MRC下还是ARC下均不需要被关联的对象在生命周期内要比对象本身释放的晚很多，它们会在被 NSObject -dealloc 调用的object_dispose()方法中释放<br>补充：对象的内存销毁时间表，分四个步骤</p>
+</blockquote>
+<h3 id="6-objc-msgForward函数是做什么的？直接调用它将会发生什么？"><a href="#6-objc-msgForward函数是做什么的？直接调用它将会发生什么？" class="headerlink" title="6._objc_msgForward函数是做什么的？直接调用它将会发生什么？"></a>6.<code>_objc_msgForward</code>函数是做什么的？直接调用它将会发生什么？</h3><blockquote>
+<p>_objc_msgForward是IMP类型，用于消息转发的：当向一个对象发送一条消息，但它并没有实现的时候，_objc_msgForward会尝试做消息转发<br>直接调用_objc_msgForward是非常危险的事，这是把双刃刀，如果用不好会直接导致程序Crash，但是如果用得好，能做很多非常酷的事<br>JSPatch就是直接调用_objc_msgForward来实现其核心功能的</p>
+</blockquote>
+<h3 id="7-能否向编译后得到的类中增加实例变量？能否向运行时创建的类中添加实例变量？为什么？"><a href="#7-能否向编译后得到的类中增加实例变量？能否向运行时创建的类中添加实例变量？为什么？" class="headerlink" title="7.能否向编译后得到的类中增加实例变量？能否向运行时创建的类中添加实例变量？为什么？"></a>7.能否向编译后得到的类中增加实例变量？能否向运行时创建的类中添加实例变量？为什么？</h3><blockquote>
+<p>不能向编译后得到的类中增加实例变量；能向运行时创建的类中添加实例变量；</p>
+</blockquote>
+<blockquote>
+<p>因为编译后的类已经注册在runtime中，类结构体中的objc_ivar_list 实例变量的链表和instance_size实例变量的内存大小已经确定，同时runtime 会调用class_setIvarLayout 或 class_setWeakIvarLayout来处理strong weak引用，所以不能向存在的类中添加实例变量</p>
+</blockquote>
+<blockquote>
+<p>运行时创建的类是可以添加实例变量，调用 class_addIvar函数，但是得在调用objc_allocateClassPair之后，objc_registerClassPair之前，原因同上。</p>
+</blockquote>
+<h3 id="8-简述下Objective-C中调用方法的过程（runtime）"><a href="#8-简述下Objective-C中调用方法的过程（runtime）" class="headerlink" title="8.简述下Objective-C中调用方法的过程（runtime）"></a>8.简述下<code>Objective-C</code>中调用方法的过程（runtime）</h3><blockquote>
+<p>Objective-C是动态语言，每个方法在运行时会被动态转为消息发送，即：objc_msgSend(receiver, selector)，整个过程介绍如下：</p>
+</blockquote>
+<blockquote>
+<p>1、objc在向一个对象发送消息时，runtime库会根据对象的isa指针找到该对象实际所属的类<br><br>2、然后在该类中的方法列表以及其父类方法列表中寻找方法运行<br><br>3、如果，在最顶层的父类（一般也就NSObject）中依然找不到相应的方法时，程序在运行时会挂掉并抛出异常unrecognized selector sent to XXX<br><br>4、但是在这之前，objc的运行时会给出三次拯救程序崩溃的机会，这三次拯救程序奔溃的说明见问题《什么时候会报unrecognized selector的异常》中的说明</p>
+</blockquote>
+<h3 id="9-什么是method-swizzling（俗称黑魔法）"><a href="#9-什么是method-swizzling（俗称黑魔法）" class="headerlink" title="9.什么是method swizzling（俗称黑魔法）"></a>9.什么是<code>method swizzling</code>（俗称黑魔法）</h3><blockquote>
+<p>简单说就是进行方法交换</p>
+</blockquote>
+<blockquote>
+<p>在OC中调用一个方法，其实是向一个对象发送消息，查找消息的唯一依据是selector的名字。利用OC的动态特性，可以实现在运行时偷换selector对应的方法实现，进行方法交换</p>
+</blockquote>
+<h3 id="10-分类添加属性"><a href="#10-分类添加属性" class="headerlink" title="10.分类添加属性"></a>10.分类添加属性</h3><blockquote>
+<p>应用场景: 给系统的类增加属性的时候,可以使用runtime动态添加属性.<br>本质: 动态添加属性,就是让某个属性与对象产生关联<br>runtime一般针对系统的类</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">static const char *key &#x3D; &quot;name&quot;;</span><br><span class="line">&#x2F;&#x2F; set方法</span><br><span class="line">- (void)setName:(NSString *)name&#123;</span><br><span class="line">    &#x2F;*</span><br><span class="line">     param1:object:给哪个对象添加属性</span><br><span class="line">     param2:key:属性名称</span><br><span class="line">     param3:value:属性值</span><br><span class="line">     param4:policy:保存策略</span><br><span class="line">     *&#x2F;</span><br><span class="line">    objc_setAssociatedObject(self, key, name, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; get 方法</span><br><span class="line">- (NSString *)name&#123;</span><br><span class="line">    return objc_getAssociatedObject(self, key);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="12-交换方法"><a href="#12-交换方法" class="headerlink" title="12.交换方法"></a>12.交换方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;类方法</span><br><span class="line">+ (void)exchangeClassMethod:(Class)anClass methodOri:(SEL)methodOri methodNew:(SEL)methodNew&#123;</span><br><span class="line">    Method oriM &#x3D; class_getClassMethod(anClass, methodOri);</span><br><span class="line">    Method newM &#x3D; class_getClassMethod(anClass, methodNew);</span><br><span class="line">    method_exchangeImplementations(oriM, newM);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;对象方法</span><br><span class="line">+ (void)exchangeInstanceMethod:(Class)anClass methodOri:(SEL)methodOri methodNew:(SEL)methodNew&#123;</span><br><span class="line">    </span><br><span class="line">    Method originalMethod &#x3D; class_getInstanceMethod(anClass, methodOri);</span><br><span class="line">    Method swizzledMethod &#x3D; class_getInstanceMethod(anClass, methodNew);</span><br><span class="line">    </span><br><span class="line">    BOOL didAddMethod &#x3D; class_addMethod(anClass,</span><br><span class="line">                                        methodOri,</span><br><span class="line">                                        method_getImplementation(swizzledMethod),</span><br><span class="line">                                        method_getTypeEncoding(swizzledMethod));</span><br><span class="line">    </span><br><span class="line">    if (didAddMethod) &#123;</span><br><span class="line">        </span><br><span class="line">        class_replaceMethod(anClass,</span><br><span class="line">                            methodNew,</span><br><span class="line">                            method_getImplementation(originalMethod),</span><br><span class="line">                            method_getTypeEncoding(originalMethod));</span><br><span class="line">        </span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        method_exchangeImplementations(originalMethod, swizzledMethod);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="13-添加方法"><a href="#13-添加方法" class="headerlink" title="13.添加方法"></a>13.添加方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line">Class cls：类对象（⚠️：我们可以看到获取方法的函数有两个class_getInstanceMethod，class_getClassMethod，分别获取实例方法和类方法，但是如果我们要添加获或者替换方法就需要注意你操作的是实例方法还是类方法，如果是类方法这个参数一定要传本类的元类）</span><br><span class="line">SEL name：方法的selector</span><br><span class="line">IMP imp：函数对应实现</span><br><span class="line">const char *types：代表函数类型，比如无参数无返回值-&gt;”v@:”，int类型返回值，一个参数传入-&gt;”i@:@”，如果你知道了对应的Method，你可以直接通过method_getTypeEncoding函数获取。</span><br><span class="line">*&#x2F;</span><br><span class="line">+ (void)load&#123;</span><br><span class="line">    Class class &#x3D; NSClassFromString(@&quot;WebActionDisablingCALayerDelegate&quot;);</span><br><span class="line">    class_addMethod(class, NSSelectorFromString(@&quot;setBeingRemoved&quot;), (IMP)setBeingRemoved, &quot;v@:&quot;);</span><br><span class="line">    class_addMethod(class, NSSelectorFromString(@&quot;willBeRemoved&quot;), (IMP)willBeRemoved, &quot;v@:&quot;);</span><br><span class="line">    class_addMethod(class, NSSelectorFromString(@&quot;removeFromSuperview&quot;), (IMP)willBeRemoved, &quot;v@:&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">id setBeingRemoved(id self, SEL selector, ...)&#123;</span><br><span class="line">    return nil;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">id willBeRemoved(id self, SEL selector, ...)&#123;</span><br><span class="line">    return nil;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/11/Git%E5%85%A5%E9%97%A8/" class="archive-article-date">
-  	<time datetime="2020-01-11T01:18:58.388Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/11/Git%E5%85%A5%E9%97%A8/">Git入门</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://www.cocoachina.com/articles/896169?filter=rec/2020/01/11/runtime/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/11/runtime/" class="archive-article-date">
-  	<time datetime="2020-01-11T01:05:23.699Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-11</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2020/01/11/Git%E5%85%A5%E9%97%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Git入门
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/01/11/%E9%9D%99%E6%80%81%E5%BA%93/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">静态库</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/11/runtime/">runtime</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/11/%E9%9D%99%E6%80%81%E5%BA%93/" class="archive-article-date">
-  	<time datetime="2020-01-11T01:05:23.699Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/11/%E9%9D%99%E6%80%81%E5%BA%93/">静态库</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/11/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="archive-article-date">
-  	<time datetime="2020-01-11T01:05:23.699Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/11/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">内存管理</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -300,8 +386,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
