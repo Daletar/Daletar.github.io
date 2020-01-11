@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
+    
 
-  
-  <title>runtime | dada</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="runtime参考：https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;8345a79fd572 1.runtime 如何实现 weak 属性 weak策略表明该属性定义了一种“非拥有关系” (nonowning relationship)。为这种属性设置新值时，设置方法既不保留新值，也不释放旧值。此特质同assign类似;然而在属性所指的对象遭到销毁时，属性值也会清空(nil out)  2.那">
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>runtime | dada | 网站副标题</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="">
+    <meta name="description" content="runtime参考：https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;8345a79fd572 1.runtime 如何实现 weak 属性 weak策略表明该属性定义了一种“非拥有关系” (nonowning relationship)。为这种属性设置新值时，设置方法既不保留新值，也不释放旧值。此特质同assign类似;然而在属性所指的对象遭到销毁时，属性值也会清空(nil out)  2.那">
 <meta property="og:type" content="article">
 <meta property="og:title" content="runtime">
 <meta property="og:url" content="http://yoursite.com/2020/01/11/runtime/index.html">
@@ -18,81 +32,168 @@
 <meta property="article:modified_time" content="2020-01-11T02:18:14.515Z">
 <meta property="article:author" content="mr">
 <meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="dada" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
 
 <meta name="generator" content="Hexo 4.2.0"></head>
 
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">dada</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">网站副标题</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">mr</h5>
+          <a href="mailto:634206017@qq.com" title="634206017@qq.com" class="mail">634206017@qq.com</a>
+        </hgroup>
       </div>
     </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-runtime" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/01/11/runtime/" class="article-date">
-  <time datetime="2020-01-11T01:05:23.699Z" itemprop="datePublished">2020-01-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
         
-  
-    <h1 class="article-title" itemprop="name">
-      runtime
-    </h1>
-  
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yscoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/ysweb" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/custom"  >
+                <i class="icon icon-lg icon-link"></i>
+                测试
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
 
-      </header>
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">runtime</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">runtime</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-01-11T01:05:23.699Z" itemprop="datePublished" class="page-time">
+  2020-01-11
+</time>
+
+
+            
+        </h5>
+    </div>
+
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="runtime"><a href="#runtime" class="headerlink" title="runtime"></a>runtime</h1><p>参考：<br><a href="https://www.jianshu.com/p/8345a79fd572" target="_blank" rel="noopener">https://www.jianshu.com/p/8345a79fd572</a></p>
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#runtime"><span class="post-toc-number">1.</span> <span class="post-toc-text">runtime</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-runtime-如何实现-weak-属性"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">1.runtime 如何实现 weak 属性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-那么runtime如何实现weak变量的自动置nil？"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">2.那么runtime如何实现weak变量的自动置nil？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-weak实现原理"><span class="post-toc-number">1.0.3.</span> <span class="post-toc-text">3.weak实现原理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-runtime如何通过selector找到对应的IMP地址？（分别考虑类方法和实例方法）"><span class="post-toc-number">1.0.4.</span> <span class="post-toc-text">4.runtime如何通过selector找到对应的IMP地址？（分别考虑类方法和实例方法）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-使用runtime-Associate方法关联的对象，需要在主对象dealloc的时候释放么？"><span class="post-toc-number">1.0.5.</span> <span class="post-toc-text">5.使用runtime Associate方法关联的对象，需要在主对象dealloc的时候释放么？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#6-objc-msgForward函数是做什么的？直接调用它将会发生什么？"><span class="post-toc-number">1.0.6.</span> <span class="post-toc-text">6._objc_msgForward函数是做什么的？直接调用它将会发生什么？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#7-能否向编译后得到的类中增加实例变量？能否向运行时创建的类中添加实例变量？为什么？"><span class="post-toc-number">1.0.7.</span> <span class="post-toc-text">7.能否向编译后得到的类中增加实例变量？能否向运行时创建的类中添加实例变量？为什么？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#8-简述下Objective-C中调用方法的过程（runtime）"><span class="post-toc-number">1.0.8.</span> <span class="post-toc-text">8.简述下Objective-C中调用方法的过程（runtime）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#9-什么是method-swizzling（俗称黑魔法）"><span class="post-toc-number">1.0.9.</span> <span class="post-toc-text">9.什么是method swizzling（俗称黑魔法）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#10-分类添加属性"><span class="post-toc-number">1.0.10.</span> <span class="post-toc-text">10.分类添加属性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#12-交换方法"><span class="post-toc-number">1.0.11.</span> <span class="post-toc-text">12.交换方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#13-添加方法"><span class="post-toc-number">1.0.12.</span> <span class="post-toc-text">13.添加方法</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-runtime"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">runtime</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-01-11 09:05:23" datetime="2020-01-11T01:05:23.699Z"  itemprop="datePublished">2020-01-11</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="runtime"><a href="#runtime" class="headerlink" title="runtime"></a>runtime</h1><p>参考：<br><a href="https://www.jianshu.com/p/8345a79fd572" target="_blank" rel="noopener">https://www.jianshu.com/p/8345a79fd572</a></p>
 <h3 id="1-runtime-如何实现-weak-属性"><a href="#1-runtime-如何实现-weak-属性" class="headerlink" title="1.runtime 如何实现 weak 属性"></a>1.<code>runtime</code> 如何实现 <code>weak</code> 属性</h3><blockquote>
 <p>weak策略表明该属性定义了一种“非拥有关系” (nonowning relationship)。为这种属性设置新值时，设置方法既不保留新值，也不释放旧值。此特质同assign类似;然而在属性所指的对象遭到销毁时，属性值也会清空(nil out)</p>
 </blockquote>
@@ -141,126 +242,302 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">static const char *key &#x3D; &quot;name&quot;;</span><br><span class="line">&#x2F;&#x2F; set方法</span><br><span class="line">- (void)setName:(NSString *)name&#123;</span><br><span class="line">    &#x2F;*</span><br><span class="line">     param1:object:给哪个对象添加属性</span><br><span class="line">     param2:key:属性名称</span><br><span class="line">     param3:value:属性值</span><br><span class="line">     param4:policy:保存策略</span><br><span class="line">     *&#x2F;</span><br><span class="line">    objc_setAssociatedObject(self, key, name, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; get 方法</span><br><span class="line">- (NSString *)name&#123;</span><br><span class="line">    return objc_getAssociatedObject(self, key);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="12-交换方法"><a href="#12-交换方法" class="headerlink" title="12.交换方法"></a>12.交换方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;类方法</span><br><span class="line">+ (void)exchangeClassMethod:(Class)anClass methodOri:(SEL)methodOri methodNew:(SEL)methodNew&#123;</span><br><span class="line">    Method oriM &#x3D; class_getClassMethod(anClass, methodOri);</span><br><span class="line">    Method newM &#x3D; class_getClassMethod(anClass, methodNew);</span><br><span class="line">    method_exchangeImplementations(oriM, newM);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;对象方法</span><br><span class="line">+ (void)exchangeInstanceMethod:(Class)anClass methodOri:(SEL)methodOri methodNew:(SEL)methodNew&#123;</span><br><span class="line">    </span><br><span class="line">    Method originalMethod &#x3D; class_getInstanceMethod(anClass, methodOri);</span><br><span class="line">    Method swizzledMethod &#x3D; class_getInstanceMethod(anClass, methodNew);</span><br><span class="line">    </span><br><span class="line">    BOOL didAddMethod &#x3D; class_addMethod(anClass,</span><br><span class="line">                                        methodOri,</span><br><span class="line">                                        method_getImplementation(swizzledMethod),</span><br><span class="line">                                        method_getTypeEncoding(swizzledMethod));</span><br><span class="line">    </span><br><span class="line">    if (didAddMethod) &#123;</span><br><span class="line">        </span><br><span class="line">        class_replaceMethod(anClass,</span><br><span class="line">                            methodNew,</span><br><span class="line">                            method_getImplementation(originalMethod),</span><br><span class="line">                            method_getTypeEncoding(originalMethod));</span><br><span class="line">        </span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        method_exchangeImplementations(originalMethod, swizzledMethod);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="13-添加方法"><a href="#13-添加方法" class="headerlink" title="13.添加方法"></a>13.添加方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line">Class cls：类对象（⚠️：我们可以看到获取方法的函数有两个class_getInstanceMethod，class_getClassMethod，分别获取实例方法和类方法，但是如果我们要添加获或者替换方法就需要注意你操作的是实例方法还是类方法，如果是类方法这个参数一定要传本类的元类）</span><br><span class="line">SEL name：方法的selector</span><br><span class="line">IMP imp：函数对应实现</span><br><span class="line">const char *types：代表函数类型，比如无参数无返回值-&gt;”v@:”，int类型返回值，一个参数传入-&gt;”i@:@”，如果你知道了对应的Method，你可以直接通过method_getTypeEncoding函数获取。</span><br><span class="line">*&#x2F;</span><br><span class="line">+ (void)load&#123;</span><br><span class="line">    Class class &#x3D; NSClassFromString(@&quot;WebActionDisablingCALayerDelegate&quot;);</span><br><span class="line">    class_addMethod(class, NSSelectorFromString(@&quot;setBeingRemoved&quot;), (IMP)setBeingRemoved, &quot;v@:&quot;);</span><br><span class="line">    class_addMethod(class, NSSelectorFromString(@&quot;willBeRemoved&quot;), (IMP)willBeRemoved, &quot;v@:&quot;);</span><br><span class="line">    class_addMethod(class, NSSelectorFromString(@&quot;removeFromSuperview&quot;), (IMP)willBeRemoved, &quot;v@:&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">id setBeingRemoved(id self, SEL selector, ...)&#123;</span><br><span class="line">    return nil;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">id willBeRemoved(id self, SEL selector, ...)&#123;</span><br><span class="line">    return nil;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/01/11/runtime/" data-id="ck597oom700029v8o4ju7hilr" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
+        </div>
+
+        <blockquote class="post-copyright">
     
-<nav id="article-nav">
-  
-    <a href="/2020/01/11/%E9%9D%99%E6%80%81%E5%BA%93/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
+    <div class="content">
         
-          静态库
+<span class="post-time">
+    Last updated: <time datetime="2020-01-11T02:18:14.515Z" itemprop="dateUpdated">2020-01-11 10:18:14</time>
+</span><br>
+
+
         
-      </div>
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2020/01/11/runtime/" target="_blank" rel="external">http://yoursite.com/2020/01/11/runtime/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://yoursite.com">
+            <img src="/img/avatar.jpg" alt="mr">
+            mr
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/01/11/runtime/&title=《runtime》 — dada&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/01/11/runtime/&title=《runtime》 — dada&source=网站描述(SEO)" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/01/11/runtime/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《runtime》 — dada&url=http://yoursite.com/2020/01/11/runtime/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/01/11/runtime/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
     </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
   
+    <div class="waves-block waves-effect prev">
+      <a href="/2020/01/11/%E9%9D%99%E6%80%81%E5%BA%93/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">静态库</h4>
+      </a>
+    </div>
   
-    <a href="/2020/01/11/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">内存管理</div>
-    </a>
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2020/01/11/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">内存管理</h4>
+      </a>
+    </div>
   
 </nav>
 
-  
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </article>
 
-</section>
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
         
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li></ul>
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
     </div>
-  </div>
+</div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
         
-          <li>
-            <a href="/2020/01/11/Git%E5%85%A5%E9%97%A8/">Git入门</a>
-          </li>
-        
-          <li>
-            <a href="/2020/01/11/%E9%9D%99%E6%80%81%E5%BA%93/">静态库</a>
-          </li>
-        
-          <li>
-            <a href="/2020/01/11/runtime/">runtime</a>
-          </li>
-        
-          <li>
-            <a href="/2020/01/11/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">内存管理</a>
-          </li>
-        
-      </ul>
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+            <span>This blog is licensed under a <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
     </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2020 mr<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    <div class="bottom">
+        <p><span>mr &copy; 2015 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
     </div>
-  </div>
 </footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-
-  
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
 
 
 
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/01/11/runtime/&title=《runtime》 — dada&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/01/11/runtime/&title=《runtime》 — dada&source=网站描述(SEO)" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/01/11/runtime/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《runtime》 — dada&url=http://yoursite.com/2020/01/11/runtime/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/01/11/runtime/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
 
-<script src="/js/script.js"></script>
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/2020/01/11/runtime/" alt="微信分享二维码">
+</div>
 
 
 
 
-  </div>
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
 </body>
 </html>
