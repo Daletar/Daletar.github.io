@@ -328,6 +328,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/01/11/runtime/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2020/01/11/runtime/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -335,6 +345,37 @@
 
           
 
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
           
 
           
@@ -469,7 +510,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/01/11/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" rel="next" title="标签">
+              <a href="/2020/01/11/%E9%9D%99%E6%80%81%E5%BA%93/" rel="next" title="标签">
                 <i class="fa fa-chevron-left"></i> 标签
               </a>
             
@@ -479,7 +520,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/01/11/Git%E5%85%A5%E9%97%A8/" rel="prev" title="标签">
+              <a href="/2020/01/11/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" rel="prev" title="标签">
                 标签 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -509,6 +550,14 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+        <div id="gitment-container" style="display:none"></div>
+      
+    </div>
 
   
 
@@ -848,6 +897,47 @@
 
 
 
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: '598589220@qq.com',
+            repo: 'https://github.com/Daletar/Daletar.github.io.git',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'c230fa53cc882f62859581c2de696594e800a528# EITHER this or proxy_gateway, Github access secret token for the Gitment',
+            
+                client_id: 'ea1a005e4ed7228a62c9'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      function showGitment(){
+        document.getElementById("gitment-display-button").style.display = "none";
+        document.getElementById("gitment-container").style.display = "block";
+        renderGitment();
+      }
+      
+      </script>
+    
 
 
 
